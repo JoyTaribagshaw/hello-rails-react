@@ -8,13 +8,19 @@ const initialState = {
 };
 
 export const fetchgreeting = createAsyncThunk("greeting/fetchgreeting", async () => {
-    const response = await axios.get('http://127.0.0.1:3000/api/v1/greeting');
-    return await response.data;
+    try {
+        const response = await axios.get('http://127.0.0.1:3000/api/v1/greetings/random');
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+    ;
 });
 
 const greetingSlice = createSlice({
     name: 'greeting',
-    initialState ,
+    initialState , 
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchgreeting.pending, (state)=>{
             state.isLoading = true
