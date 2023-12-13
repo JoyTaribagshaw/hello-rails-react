@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const fetchgreeting = createAsyncThunk("greeting/fetchgreeting", async () => {
-    const response = await axios.get('http://127.0.0.1:3000/api/v1/greetings/random');
+    const response = await axios.get('http://127.0.0.1:3000/api/v1/greeting');
     return await response.data;
 });
 
