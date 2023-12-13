@@ -1,28 +1,24 @@
-mport React from 'react'
-import { useSelector } from 'react-redux';
-
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchgreeting } from "../slices/greetingSlice";
 const Greeting = () => {
-  const { message, isLoading, error } = useSelector((store) => store.greetings);
+    const greetings = useSelector(store => store.greeting);
+    const dispatch = useDispatch();
 
-  if (isLoading) {
+    useEffect(() => {
+        dispatch(fetchgreeting());
+    }, []);
+
+    if(greetings.isLoading){
+        return <p>Loading...</p>
+    }
+
     return (
-      <div>Loading......</div>
+        <div>
+            <h1>Random Greetings</h1>
+            <p>{greetings.greeting.text}</p>
+        </div>
     );
-  }
-  if (error) {
-    return (
-      <p className={styles.error}>
-        Something went wrong!
-        <br />
-        { error }
-      </p>
-    );
-  }
-  if (message) {
-    return (
-      <div>{ message }</div>
-    );
-  }
 };
 
 export default Greeting;
